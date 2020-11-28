@@ -1,7 +1,148 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "awesome-ac": {
+      "root": "apps/awesome-ac",
+      "sourceRoot": "apps/awesome-ac",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/next:build",
+          "options": {
+            "root": "apps/awesome-ac",
+            "outputPath": "dist/apps/awesome-ac"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "awesome-ac:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "awesome-ac:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "builder": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "awesome-ac:build:production"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/awesome-ac/**/*.{ts,tsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/awesome-ac/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "awesome-ac-e2e": {
+      "root": "apps/awesome-ac-e2e",
+      "sourceRoot": "apps/awesome-ac-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/awesome-ac-e2e/cypress.json",
+            "tsConfig": "apps/awesome-ac-e2e/tsconfig.e2e.json",
+            "devServerTarget": "awesome-ac:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "awesome-ac:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/awesome-ac-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "awesome-ac-api": {
+      "root": "apps/awesome-ac-api",
+      "sourceRoot": "apps/awesome-ac-api/src",
+      "projectType": "application",
+      "prefix": "awesome-ac-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/awesome-ac-api",
+            "main": "apps/awesome-ac-api/src/main.ts",
+            "tsConfig": "apps/awesome-ac-api/tsconfig.app.json",
+            "assets": ["apps/awesome-ac-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/awesome-ac-api/src/environments/environment.ts",
+                  "with": "apps/awesome-ac-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "awesome-ac-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/awesome-ac-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/awesome-ac-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/next"
+  },
+  "schematics": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "awesome-ac"
 }

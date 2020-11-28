@@ -1,0 +1,3 @@
+[submodule "apps/awesome-ac/acnhapi"]
+	path = apps/awesome-ac/acnhapi
+	url = https://github.com/alexislours/ACNHAPI
