@@ -15,7 +15,12 @@ export const ItemFullView = ({ item }: { item: Item }) => {
               <Card.Content>
                 <Card.Header>{toUpperCase(item.name)}</Card.Header>
               </Card.Content>
-              {/* <Image layout="responsive" width={256} height={256} src={item.image_uri} /> */}
+              <Image
+                layout="fixed"
+                width={128}
+                height={128}
+                src={item.variants[0].image}
+              />
             </Card>
           </Grid.Column>
           <Grid.Column>
@@ -55,45 +60,6 @@ export const ItemFullView = ({ item }: { item: Item }) => {
                     <List.Header content="Size" />
                     <List.Content content={item.size} />
                   </List.Item>
-
-                  {/* <List.Item>
-                    <List.Header content="Favorite Song" />
-                    <List.Content content={itemExtra.favoriteSong} />
-                  </List.Item>
-                  <List.Item>
-                    <List.Header content="Wallpaper" />
-                    <List.Content content={toUpperCase(itemExtra.wallpaper)} />
-                  </List.Item>
-                  <List.Item>
-                    <List.Header content="Flooring" />
-                    <List.Content content={toUpperCase(itemExtra.flooring)} />
-                  </List.Item> */}
-                  {/* <List.Item>
-                    <List.Header content="Furniture List" />
-
-                    <List.Content
-                      content={furnitureItem.map(([item]) => `${toUpperCase(item.name)} `)}
-                    />
-                  </List.Item> */}
-                  {/* <List.Item>
-                    <List.Header content="Colors" />
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{
-                          width: 20,
-                          height: 20,
-                          backgroundColor: `${item["bubble-color"]}`,
-                        }}
-                      />
-                      <div
-                        style={{
-                          width: 20,
-                          height: 20,
-                          backgroundColor: `${item["text-color"]}`,
-                        }}
-                      />
-                    </div>
-                  </List.Item> */}
                 </List>
               </Card.Content>
             </Card>
@@ -103,13 +69,14 @@ export const ItemFullView = ({ item }: { item: Item }) => {
               <Card.Content>
                 <Card.Header>Images</Card.Header>
                 {item.variants.map((variant) => (
-                  <Image
-                    key={variant.uniqueEntryId}
-                    layout="fixed"
-                    src={variant.image}
-                    width={75}
-                    height={75}
-                  />
+                  <a key={variant.uniqueEntryId} href={variant.image}>
+                    <Image
+                      layout="fixed"
+                      src={variant.image}
+                      width={75}
+                      height={75}
+                    />
+                  </a>
                 ))}
               </Card.Content>
             </Card>

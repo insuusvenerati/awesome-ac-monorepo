@@ -1,8 +1,8 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import { Sea } from "../../types/sea";
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { Sea } from '../../types/sea';
+import seaItems from '../../acnhapi/v1a/sea.json';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const seaItems: Sea[] = require("../../acnhapi/v1a/sea.json");
   return {
     paths: seaItems.map((item) => `/sea/${item.id}`),
     fallback: false,
@@ -11,7 +11,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const response = await fetch(`https://acnhapi.com/v1a/sea/${params?.id}`);
-  const seaItem = await response.json();
+  const seaItem: Sea = await response.json();
   return { props: { seaItem } };
 };
 
