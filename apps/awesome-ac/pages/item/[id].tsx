@@ -6,7 +6,7 @@ import { Item } from '../../types/item';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const response = await fetch(
-    `http://localhost:1337/items/filter?id=${params.id}`
+    `${process.env.NEXT_PUBLIC_API_URI}/items/filter?id=${params.id}`
   );
   const item = await response.json();
   return {
