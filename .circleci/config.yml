@@ -11,8 +11,6 @@ jobs:
           paths:
             - ./node_modules
             - '~/.pnpm-store'
-      - run: curl -L https://unpkg.com/@pnpm/self-installer | node
-      - run: pnpm config set store-dir ~/.pnpm-store
 
   build_install:
     docker:
