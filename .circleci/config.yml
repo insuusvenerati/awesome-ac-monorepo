@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: 'circleci/node:14'
     steps:
+      - checkout
       - save_cache:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
           paths:
