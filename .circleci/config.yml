@@ -1,7 +1,27 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
+version: 2
+
+cache:
+  npm: false
+  directories:
+    - '~/.pnpm-store'
+before_install:
+  - curl -L https://unpkg.com/@pnpm/self-installer | node
+  - pnpm config set store-dir ~/.pnpm-store
+
+jobs:
+  build_install:
+    docker:
+      - image: 'circleci/node:14'
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: pnpm install
+      - run:
+          name: build
+          command: pnpm run nx build awesome-ac
+
 workflows:
-  node-tests:
+  build_install:
     jobs:
-      - node/test
+      - build_install
