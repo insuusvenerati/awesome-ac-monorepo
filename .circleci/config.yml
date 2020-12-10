@@ -1,14 +1,18 @@
-version: 2
-
-cache:
-  npm: false
-  directories:
-    - '~/.pnpm-store'
-before_install:
-  - curl -L https://unpkg.com/@pnpm/self-installer | node
-  - pnpm config set store-dir ~/.pnpm-store
+version: 2.1
 
 jobs:
+  install:
+    docker:
+      - image: 'circleci/node:14'
+    steps:
+      - save_cache:
+          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - ./node_modules
+            - '~/.pnpm-store'
+      - run: curl -L https://unpkg.com/@pnpm/self-installer | node
+      - run: pnpm config set store-dir ~/.pnpm-store
+
   build_install:
     docker:
       - image: 'circleci/node:14'
@@ -24,4 +28,5 @@ jobs:
 workflows:
   build_install:
     jobs:
+      - install
       - build_install
