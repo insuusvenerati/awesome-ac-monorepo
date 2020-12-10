@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   install:
     docker:
-      - image: 'circleci/node:14'
+      - image: 'znck/pnpm:latest'
     steps:
       - checkout
       - save_cache:
@@ -16,9 +16,11 @@ jobs:
 
   build_install:
     docker:
-      - image: 'circleci/node:14'
+      - image: 'znck/pnpm:latest'
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: install
           command: pnpm install
