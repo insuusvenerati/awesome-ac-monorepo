@@ -34,10 +34,7 @@ jobs:
 workflows:
   build_install:
     jobs:
-      - build_install:
-          filter:
-            branches:
-              only: master
+      - build_install
       # - docker_build:
       #     filter:
       #       branches:

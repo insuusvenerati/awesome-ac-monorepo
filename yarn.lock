@@ -1961,6 +1961,17 @@
     yargs "15.4.1"
     yargs-parser "20.0.0"
 
+"@nrwl/cli@^10.4.4":
+  version "10.4.7"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-10.4.7.tgz#adfb4a8fa65e5d06f943ad6ba38e34276b9de056"
+  integrity sha512-Vr0a3WsQhyRzp5yA4mYxEito9OBbkN4H+dkzgZc0THm9xyVvTWceEtaz81VwPNyrfiqyRfvptPPDgNtKhhvtRA==
+  dependencies:
+    "@nrwl/tao" "10.4.7"
+    chalk "2.4.2"
+    tmp "0.0.33"
+    yargs "15.4.1"
+    yargs-parser "20.0.0"
+
 "@nrwl/cypress@10.4.4":
   version "10.4.4"
   resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-10.4.4.tgz#34932d088f3b0d813621168f442e8f6835a6783c"
@@ -2089,6 +2100,22 @@
   version "10.4.4"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-10.4.4.tgz#64e341ac1e4501aabd6dc9d8d20883d12cda2245"
   integrity sha512-FZfEkZ7/YcbN7TyKewidCLXgNRs3Z/989OJOPEkUpTJ8wMoYE6HX+Z6D8IieGEOg7bTtMJ8xcwiBtgEwWu6nSw==
+  dependencies:
+    "@angular-devkit/architect" "~0.1001.3"
+    "@angular-devkit/core" "~10.1.3"
+    "@angular-devkit/schematics" "~10.1.3"
+    inquirer "^6.3.1"
+    minimist "^1.2.0"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
+"@nrwl/tao@10.4.7":
+  version "10.4.7"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-10.4.7.tgz#203e8a02087169cf03e05b854c92672d1b74adb0"
+  integrity sha512-uTTgbf77ai6NXz8Y9E1nilRjCOB7qOqTaxNIEcymHBRkxoiPQYjWIiVAyL45OecFvPW3Mk2ZnpRyaw+7uA2+oA==
   dependencies:
     "@angular-devkit/architect" "~0.1001.3"
     "@angular-devkit/core" "~10.1.3"
@@ -15601,8 +15628,3 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-
-yogurt-css@^1.1.2:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/yogurt-css/-/yogurt-css-1.1.3.tgz#3fc099eb2eaf347b200fdf0b9d08435c107580eb"
-  integrity sha512-por85Sp4yYZgyEeZllt7FAD0m5v/oqT30QjmJPm2jApc3dKDisTH8uL5Etd3Y0rlT8MSLlihuIEta0fUxPybzg==
