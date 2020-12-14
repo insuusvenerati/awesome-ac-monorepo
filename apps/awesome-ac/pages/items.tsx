@@ -1,12 +1,20 @@
-import { NextSeo } from "next-seo";
-import { useState } from "react";
-import { connectHits, Hit, InstantSearch } from "react-instantsearch-core";
-import { Button, Card, Container, Grid, Icon, Segment, Sidebar } from "semantic-ui-react";
-import { Item } from "../components/Item";
-import { CustomNavbar } from "../components/Navbar";
-import { CustomFilterList } from "../components/RefinementList";
-import { searchClient } from "../searchClient";
-import { Item as ItemType } from "../types/item";
+import { NextSeo } from 'next-seo';
+import { useState } from 'react';
+import { connectHits, Hit, InstantSearch } from 'react-instantsearch-core';
+import {
+  Button,
+  Card,
+  Container,
+  Grid,
+  Icon,
+  Segment,
+  Sidebar,
+} from 'semantic-ui-react';
+import { Item } from '../components/Item';
+import { CustomNavbar } from '../components/Navbar';
+import { CustomFilterList } from '../components/RefinementList';
+import { searchClient } from '../searchClient';
+import { Item as ItemType } from '../types/item';
 
 const CustomHitsView = ({ hits }: { hits: Hit<ItemType>[] }) =>
   hits.map((hit) => <Item key={hit._id} item={hit} />);
@@ -22,7 +30,10 @@ export default function ItemsPage() {
       <InstantSearch searchClient={searchClient} indexName="items">
         <CustomNavbar />
         <Container fluid>
-          <Button style={{ marginBottom: 10 }} onClick={() => setVisible(!visible)}>
+          <Button
+            style={{ marginBottom: 10 }}
+            onClick={() => setVisible(!visible)}
+          >
             <Icon name="filter" />
             Filter
           </Button>

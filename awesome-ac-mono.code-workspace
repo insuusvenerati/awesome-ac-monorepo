@@ -1,11 +1,13 @@
 {
   "folders": [
-	{
-		"path": "."
-	},
-	{
-		"path": "../cra-testing/mongo-dev"
-	}
-],
-  "settings": {}
+    {
+      "path": "."
+    },
+    {
+      "path": "..\\..\\..\\Docker\\mongo-dev"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "awesome-ac-mono/node_modules/typescript/lib"
+  }
 }

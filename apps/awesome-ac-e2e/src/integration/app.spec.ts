@@ -1,13 +1,13 @@
-import { getGreeting } from '../support/app.po';
+import { getNavItem, getVillagerCard } from '../support/app.po';
 
 describe('awesome-ac', () => {
   beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
+  it('should render four nav items', () => {
+    getNavItem().its('length').should('eq', 4);
+  });
 
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to awesome-ac!');
+  it('should render 20 initial villagers', () => {
+    getVillagerCard().its('length').should('eq', 20);
   });
 });

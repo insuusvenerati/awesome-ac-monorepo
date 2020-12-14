@@ -1,33 +1,44 @@
 version: 2.1
 
 jobs:
-  install:
-    docker:
-      - image: 'stiforr/pnpm:latest'
-    steps:
-      - checkout
-      - save_cache:
-          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
-          paths:
-            - ./node_modules
-            - '~/.pnpm-store'
-
+  # docker_build:
+  #   docker:
+  #     - image:
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker:
+  #         docker_layer_caching: true
+  #     - run:
+  #         name: Build docker image
+  #         command: docker build -t stiforr/awesome-ac:latest
   build_install:
     docker:
-      - image: 'stiforr/pnpm:latest'
+      - image: 'circleci/node:14'
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
+          name: Restore Yarn Cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: install
-          command: pnpm install
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - run:
           name: build
-          command: pnpm run nx build awesome-ac
+          command: yarn nx build awesome-ac
+      - save_cache:
+          name: Save Yarn Cache
+          paths:
+            - '~/.cache/yarn'
+          key: dependency-cache-{{ checksum "yarn.lock" }}
 
 workflows:
   build_install:
     jobs:
-      - install
-      - build_install
+      - build_install:
+          filter:
+            branches:
+              only: master
+      # - docker_build:
+      #     filter:
+      #       branches:
+      #         only: master

@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Card, Container, Grid, Label, List } from "semantic-ui-react";
-import { Item } from "../types/item";
-import { Villager, VillagerExtra } from "../types/villagers";
-import { toUpperCase } from "../utility";
-import { CustomNavbar } from "./Navbar";
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { Card, Container, Grid, Label, List } from 'semantic-ui-react';
+import { Item } from '../types/item';
+import { Villager, VillagerExtra } from '../types/villagers';
+import { toUpperCase } from '../utility';
+import { CustomNavbar } from './Navbar';
 
 export const VillagerFullView = ({
   villager,
@@ -17,12 +17,12 @@ export const VillagerFullView = ({
 
   useEffect(() => {
     async function findFurnitureFromList() {
-      const furnitureListArray = villagerExtra.furnitureList.split(";");
+      const furnitureListArray = villagerExtra.furnitureList.split(';');
       const results: Array<Array<Item>> = await Promise.all(
         furnitureListArray.map((item) =>
-          fetch(`${process.env.NEXT_PUBLIC_API_URI}/items/variant/${item}`).then((response) =>
-            response.json()
-          )
+          fetch(
+            `${process.env.NEXT_PUBLIC_API_URI}/items/variant/${item}`
+          ).then((response) => response.json())
         )
       );
       setFurnitureItems(results);
@@ -38,9 +38,14 @@ export const VillagerFullView = ({
           <Grid.Column>
             <Card>
               <Card.Content>
-                <Card.Header>{villager.name["name-USen"]}</Card.Header>
+                <Card.Header>{villager.name['name-USen']}</Card.Header>
               </Card.Content>
-              <Image layout="responsive" width={256} height={256} src={villager.image_uri} />
+              <Image
+                layout="responsive"
+                width={256}
+                height={256}
+                src={villager.image_uri}
+              />
             </Card>
           </Grid.Column>
           <Grid.Column>
@@ -58,7 +63,7 @@ export const VillagerFullView = ({
                   </List.Item>
                   <List.Item>
                     <List.Header content="Catch Phrase" />
-                    <List.Content content={villager["catch-phrase"]} />
+                    <List.Content content={villager['catch-phrase']} />
                   </List.Item>
                   <List.Item>
                     <List.Header content="Gender" />
@@ -90,15 +95,18 @@ export const VillagerFullView = ({
                   </List.Item>
                   <List.Item>
                     <List.Header content="Wallpaper" />
-                    <List.Content content={toUpperCase(villagerExtra.wallpaper)} />
+                    <List.Content
+                      content={toUpperCase(villagerExtra.wallpaper)}
+                    />
                   </List.Item>
                   <List.Item>
                     <List.Header content="Flooring" />
-                    <List.Content content={toUpperCase(villagerExtra.flooring)} />
+                    <List.Content
+                      content={toUpperCase(villagerExtra.flooring)}
+                    />
                   </List.Item>
                   <List.Item>
                     <List.Header content="Furniture List" />
-                    {console.log(furnitureItems)}
 
                     {/* <List.Content
                       content={furnitureItems.map(([item]) => `${toUpperCase(item.name)} `)}
@@ -106,19 +114,19 @@ export const VillagerFullView = ({
                   </List.Item>
                   <List.Item>
                     <List.Header content="Colors" />
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: 'flex' }}>
                       <div
                         style={{
                           width: 20,
                           height: 20,
-                          backgroundColor: `${villager["bubble-color"]}`,
+                          backgroundColor: `${villager['bubble-color']}`,
                         }}
                       />
                       <div
                         style={{
                           width: 20,
                           height: 20,
-                          backgroundColor: `${villager["text-color"]}`,
+                          backgroundColor: `${villager['text-color']}`,
                         }}
                       />
                     </div>
@@ -136,8 +144,18 @@ export const VillagerFullView = ({
             <Card>
               <Card.Content>
                 <Card.Header>Images</Card.Header>
-                <Image width={128} height={128} layout="fixed" src={villagerExtra.iconImage} />
-                <Image width={256} height={256} layout="fixed" src={villagerExtra.houseImage} />
+                <Image
+                  width={128}
+                  height={128}
+                  layout="fixed"
+                  src={villagerExtra.iconImage}
+                />
+                <Image
+                  width={256}
+                  height={256}
+                  layout="fixed"
+                  src={villagerExtra.houseImage}
+                />
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -150,7 +168,7 @@ export const VillagerFullView = ({
                     <List.Header>
                       <a
                         target="blank"
-                        href={`https://nookipedia.com/wiki/${villager.name["name-USen"]}`}
+                        href={`https://nookipedia.com/wiki/${villager.name['name-USen']}`}
                       >
                         Nookipedia
                       </a>
