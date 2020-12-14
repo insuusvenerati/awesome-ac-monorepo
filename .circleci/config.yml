@@ -1,16 +1,16 @@
 version: 2.1
 
 jobs:
-  # docker_build:
-  #   docker:
-  #     - image:
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker:
-  #         docker_layer_caching: true
-  #     - run:
-  #         name: Build docker image
-  #         command: docker build -t stiforr/awesome-ac:latest
+  docker_build:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build docker image
+          command: docker build -t stiforr/awesome-ac:latest .
   build_install:
     docker:
       - image: 'circleci/node:14'
@@ -35,7 +35,6 @@ workflows:
   build_install:
     jobs:
       - build_install
-      # - docker_build:
-      #     filter:
-      #       branches:
-      #         only: master
+      - docker_build:
+          requires:
+            - build_install
