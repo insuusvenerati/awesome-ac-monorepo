@@ -10,8 +10,14 @@ jobs:
           docker_layer_caching: false
           version: 19.03.13
       - run:
+          name: Docker login
+          command: echo $DOCKER_PASS | docker login -u stiforr --password-stdin
+      - run:
           name: Build docker image
           command: docker build -t stiforr/awesome-ac:latest .
+      - run:
+          name: Push docker Image
+          command: docker push stiforr/awesome-ac:latest
   build_install:
     docker:
       - image: 'circleci/node:14'
