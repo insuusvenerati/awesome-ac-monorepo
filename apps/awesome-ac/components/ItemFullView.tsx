@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Card, Container, Grid, List } from 'semantic-ui-react';
 import { Item } from '../types/item';
 import { toUpperCase } from '../utility';
@@ -16,7 +15,7 @@ export const ItemFullView = ({ item }: { item: Item }) => {
                 <Card.Header>{toUpperCase(item.name)}</Card.Header>
               </Card.Content>
               <img
-                layout="fixed"
+                alt="item"
                 width={128}
                 height={128}
                 src={item.variants[0].image}
@@ -71,7 +70,7 @@ export const ItemFullView = ({ item }: { item: Item }) => {
                 {item.variants.map((variant) => (
                   <a key={variant.uniqueEntryId} href={variant.image}>
                     <img
-                      layout="fixed"
+                      alt="item"
                       src={variant.image}
                       width={75}
                       height={75}

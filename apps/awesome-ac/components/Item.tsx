@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Label, List } from 'semantic-ui-react';
 import { Item as ItemType } from '../types/item';
@@ -51,7 +50,7 @@ export const Item = ({ item }: { item: ItemType }) => (
                 key={variant.uniqueEntryId}
                 width={75}
                 height={75}
-                layout="fixed"
+                alt="item"
                 src={variant.image}
               />
             )

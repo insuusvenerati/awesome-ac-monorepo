@@ -1,14 +1,13 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
 import { Card, List } from 'semantic-ui-react';
-import { numMonths, toUpperCase } from '../utility';
 import { Sea } from '../types/sea';
+import { numMonths, toUpperCase } from '../utility';
 
 const SeaItem = ({ sea }: { sea: Sea }) => (
   <Link href={`/sea/${sea.id}`}>
     <Card style={{ backgroundColor: '#F0EAD6' }} raised href={`/sea/${sea.id}`}>
-      <img width={256} height={256} layout="responsive" src={sea.image_uri} />
+      <img width={256} height={256} alt="sea item" src={sea.image_uri} />
 
       <Card.Content>
         <Card.Header>{toUpperCase(sea.name['name-USen'])}</Card.Header>

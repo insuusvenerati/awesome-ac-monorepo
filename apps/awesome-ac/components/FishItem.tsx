@@ -1,10 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
 import { Card, List } from 'semantic-ui-react';
-import { toUpperCase } from '../utility';
 import { Fish } from '../types/fish';
-import { numMonths } from '../utility';
+import { numMonths, toUpperCase } from '../utility';
 
 const FishItem = ({ fish }: { fish: Fish }) => (
   <Link href={`/fish/${fish.id}`}>
@@ -13,7 +11,7 @@ const FishItem = ({ fish }: { fish: Fish }) => (
       raised
       href={`/fish/${fish.id}`}
     >
-      <img width={1024} height={512} layout="fixed" src={fish.image_uri} />
+      <img width={1024} height={512} alt="fish" src={fish.image_uri} />
 
       <Card.Content>
         <Card.Header>{toUpperCase(fish.name['name-USen'])}</Card.Header>

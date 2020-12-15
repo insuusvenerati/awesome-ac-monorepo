@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Card, Grid, List } from 'semantic-ui-react';
 import { Variant } from '../types/item';
 
@@ -8,7 +7,7 @@ export const ItemVariant = ({ variant }: { variant: Variant }) => {
       <Card>
         <Card.Content>
           <Card.Header>
-            <img layout="fixed" width={128} height={128} src={variant.image} />
+            <img alt="item" width={128} height={128} src={variant.image} />
           </Card.Header>
           <Card.Header>Colors</Card.Header>
           <List>
