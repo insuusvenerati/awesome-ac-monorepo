@@ -12,7 +12,7 @@ jobs:
           docker_layer_caching: false
           version: 19.03.13
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
@@ -29,12 +29,14 @@ jobs:
           username: stiforr
           password: $DOCKER_PASS
     working_directory: ~/awesome-ac
+    environment:
+      CACHE_VERSION: v1
     steps:
       - checkout
       - save_cache:
           paths:
             - '~/awesome-ac'
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
   install_deps:
     docker:
       - image: 'circleci/node:14'
@@ -44,20 +46,20 @@ jobs:
     working_directory: ~/awesome-ac
     steps:
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Cache
           paths:
             - '~/awesome-ac/.cache'
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
   build:
     docker:
       - image: 'circleci/node:14'
     steps:
       - restore_cache:
           name: Restore Yarn Cache
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run:
           name: build
           command: yarn nx build awesome-ac
@@ -68,7 +70,7 @@ jobs:
     steps:
       - restore_cache:
           name: Restore Yarn Cache
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run:
           name: install
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
@@ -81,7 +83,7 @@ jobs:
     steps:
       - restore_cache:
           name: Restore Yarn Cache
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
       - run:
           name: install
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
