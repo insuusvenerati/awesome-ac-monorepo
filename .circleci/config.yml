@@ -31,12 +31,12 @@ jobs:
           password: $DOCKER_PASS
     working_directory: ~/awesome-ac
     environment:
-      CACHE_VERSION: v1
+      CACHE_VERSION: v2
     steps:
       - checkout
       - save_cache:
           paths:
-            - '~/awesome-ac'
+            - '~/awesome-ac/.cache'
           key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
   install_deps:
     docker:
@@ -48,7 +48,7 @@ jobs:
     steps:
       - restore_cache:
           key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
-      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - run: yarn install --frozen-lockfile --cache-folder ~/awesome-ac/.cache/yarn
       - save_cache:
           name: Save Yarn Cache
           paths:
