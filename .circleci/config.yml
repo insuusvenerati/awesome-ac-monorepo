@@ -50,7 +50,7 @@ jobs:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
-      - run: yarn install --frozen-lockfile --cache-folder ~/awesome-ac/.cache/yarn
+      - run: yarn install --frozen-lockfile --cache-folder /home/circleci/awesome-ac/.cache/yarn
       - save_cache:
           paths:
             - '~/awesome-ac/.cache'
@@ -79,7 +79,7 @@ jobs:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
       - run:
           name: install
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+          command: yarn install --frozen-lockfile --cache-folder /home/circleci/awesome-ac/.cache/yarn
       - run:
           name: Run E2E Tests
           command: yarn nx e2e awesome-ac-e2e
@@ -94,7 +94,7 @@ jobs:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}}
       - run:
           name: install
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+          command: yarn install --frozen-lockfile --cache-folder /home/circleci/awesome-ac/.cache/yarn
       - run:
           name: Lint code
           command: yarn nx lint awesome-ac
