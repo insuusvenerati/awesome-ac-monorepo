@@ -1,18 +1,29 @@
 import fetch from 'isomorphic-unfetch';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { NextSeo, SocialProfileJsonLd } from 'next-seo';
 import { VillagerFullView } from '../../components/VillagerFullView';
 import { Villager, VillagerExtra } from '../../types/villagers';
-import villagers from '../../acnhapi/v1a/villagers.json';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: villagers.map((villager) => `/villager/${villager.id}`),
-    fallback: false,
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   return {
+//     paths: villagers.map((villager) => `/villager/${villager.id}`),
+//     fallback: false,
+//   };
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+// export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   const response = await fetch(
+//     `https://acnhapi.com/v1a/villagers/${params?.id}`
+//   );
+//   const villager: Villager = await response.json();
+//   const villagerExtraResponse = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URI}/villagers/filter/?name=${villager.name['name-USen']}`
+//   );
+//   const villagerExtra = await villagerExtraResponse.json();
+//   return { props: { villager, villagerExtra } };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const response = await fetch(
     `https://acnhapi.com/v1a/villagers/${params?.id}`
   );
@@ -21,6 +32,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     `${process.env.NEXT_PUBLIC_API_URI}/villagers/filter/?name=${villager.name['name-USen']}`
   );
   const villagerExtra = await villagerExtraResponse.json();
+
   return { props: { villager, villagerExtra } };
 };
 

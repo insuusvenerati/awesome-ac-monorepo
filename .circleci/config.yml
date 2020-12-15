@@ -40,11 +40,36 @@ jobs:
           paths:
             - '~/.cache/yarn'
           key: dependency-cache-{{ checksum "yarn.lock" }}
-
+  end-to-end:
+    docker:
+      - image: 'circleci/node:14'
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: Run E2E Tests
+          command: yarn nx e2e awesome-ac-e2e
+  lint:
+    docker:
+      - image: 'circleci/node:14'
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Cache
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: Lint code
+          command: yarn nx lint awesome-ac
 workflows:
   build_install:
     jobs:
       - build_install
+      - end-to-end
+      - lint
       - docker_build:
           requires:
             - build_install
+            - end-to-end
+            - lint

@@ -1,10 +1,9 @@
 const withNx = require('@nrwl/next/plugins/with-nx');
 const withOffline = require('next-offline');
+const withPlugins = require('next-compose-plugins');
+const optimizedImages = require('next-optimized-images');
 
 const swConfig = {
-  images: {
-    domains: ['acnhapi.com', 'acnhcdn.com', 'acnhapi.b-cdn.net'],
-  },
   target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we
@@ -32,8 +31,13 @@ const swConfig = {
   },
 };
 
-module.exports = withNx({
+const nextConfig = {
   images: {
     domains: ['acnhapi.com', 'acnhcdn.com', 'acnhapi.b-cdn.net'],
   },
-});
+};
+
+module.exports = withPlugins(
+  [[optimizedImages], [withNx], [withOffline, swConfig]],
+  nextConfig
+);
