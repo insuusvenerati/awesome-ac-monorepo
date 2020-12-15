@@ -91,12 +91,14 @@ jobs:
 workflows:
   build_install:
     jobs:
+      - checkout
       - build
       - install_deps
       - lint
       - end-to-end
       - docker_build:
           requires:
+            - checkout
             - build
             - install_deps
             - end-to-end
