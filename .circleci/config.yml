@@ -39,6 +39,7 @@ jobs:
           name: Save Yarn Cache
           paths:
             - '~/.cache'
+            - 'node_modules'
           key: dependency-cache-{{ checksum "yarn.lock" }}
   end-to-end:
     docker:
