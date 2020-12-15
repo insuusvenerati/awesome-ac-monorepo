@@ -54,16 +54,21 @@ jobs:
       - save_cache:
           paths:
             - '~/awesome-ac/.cache'
+            - '~/awesome-ac/node_modules'
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
   build:
     docker:
       - image: 'circleci/node:14'
     working_directory: ~/awesome-ac
     steps:
+      - checkout
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
+      - run:
+          name: install
+          command: yarn install --frozen-lockfile --cache-folder /home/circleci/awesome-ac/.cache/yarn
       - run:
           name: build
           command: yarn nx build awesome-ac
@@ -73,6 +78,7 @@ jobs:
       - image: 'cypress/base:14.15.0'
     working_directory: ~/awesome-ac
     steps:
+      - checkout
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
