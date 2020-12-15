@@ -15,7 +15,7 @@ jobs:
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/awesome-ac/yarn.lock" }}
       - run:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
@@ -49,12 +49,12 @@ jobs:
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/awesome-ac/yarn.lock" }}
       - run: yarn install --frozen-lockfile --cache-folder ~/awesome-ac/.cache/yarn
       - save_cache:
           paths:
             - '~/awesome-ac/.cache'
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/awesome-ac/yarn.lock" }}
   build:
     docker:
       - image: 'circleci/node:14'
@@ -63,7 +63,7 @@ jobs:
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/awesome-ac/yarn.lock" }}
       - run:
           name: build
           command: yarn nx build awesome-ac
@@ -76,7 +76,7 @@ jobs:
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/awesome-ac/yarn.lock" }}
       - run:
           name: install
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
@@ -91,7 +91,7 @@ jobs:
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "yarn.lock" }}
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "~/awesome-ac/yarn.lock" }}
       - run:
           name: install
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
