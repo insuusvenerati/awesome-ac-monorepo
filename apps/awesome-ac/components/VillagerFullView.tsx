@@ -40,7 +40,7 @@ export const VillagerFullView = ({
               <Card.Content>
                 <Card.Header>{villager.name['name-USen']}</Card.Header>
               </Card.Content>
-              <Image
+              <img
                 layout="responsive"
                 width={256}
                 height={256}
@@ -144,13 +144,13 @@ export const VillagerFullView = ({
             <Card>
               <Card.Content>
                 <Card.Header>Images</Card.Header>
-                <Image
+                <img
                   width={128}
                   height={128}
                   layout="fixed"
                   src={villagerExtra.iconImage}
                 />
-                <Image
+                <img
                   width={256}
                   height={256}
                   layout="fixed"

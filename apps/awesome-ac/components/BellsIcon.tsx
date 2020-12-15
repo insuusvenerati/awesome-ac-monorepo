@@ -1,7 +1,7 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export const BellsIcon = () => (
-  <Image
+  <img
     layout="fixed"
     height="10"
     width="10"

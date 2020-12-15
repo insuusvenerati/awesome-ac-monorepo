@@ -47,7 +47,7 @@ export const Item = ({ item }: { item: ItemType }) => (
         {item.variants.map(
           (variant) =>
             variant.image && (
-              <Image
+              <img
                 key={variant.uniqueEntryId}
                 width={75}
                 height={75}

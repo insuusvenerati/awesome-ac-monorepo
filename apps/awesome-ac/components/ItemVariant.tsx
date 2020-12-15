@@ -8,12 +8,7 @@ export const ItemVariant = ({ variant }: { variant: Variant }) => {
       <Card>
         <Card.Content>
           <Card.Header>
-            <Image
-              layout="fixed"
-              width={128}
-              height={128}
-              src={variant.image}
-            />
+            <img layout="fixed" width={128} height={128} src={variant.image} />
           </Card.Header>
           <Card.Header>Colors</Card.Header>
           <List>

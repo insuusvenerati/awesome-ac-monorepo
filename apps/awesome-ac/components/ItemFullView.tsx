@@ -15,7 +15,7 @@ export const ItemFullView = ({ item }: { item: Item }) => {
               <Card.Content>
                 <Card.Header>{toUpperCase(item.name)}</Card.Header>
               </Card.Content>
-              <Image
+              <img
                 layout="fixed"
                 width={128}
                 height={128}
@@ -70,7 +70,7 @@ export const ItemFullView = ({ item }: { item: Item }) => {
                 <Card.Header>Images</Card.Header>
                 {item.variants.map((variant) => (
                   <a key={variant.uniqueEntryId} href={variant.image}>
-                    <Image
+                    <img
                       layout="fixed"
                       src={variant.image}
                       width={75}
