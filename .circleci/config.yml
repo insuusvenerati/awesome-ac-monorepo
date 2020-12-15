@@ -38,11 +38,11 @@ jobs:
       - save_cache:
           name: Save Yarn Cache
           paths:
-            - '~/.cache/yarn'
+            - '~/.cache'
           key: dependency-cache-{{ checksum "yarn.lock" }}
   end-to-end:
     docker:
-      - image: 'circleci/node:14'
+      - image: 'cypress/base:14.15.0'
     steps:
       - checkout
       - restore_cache:
