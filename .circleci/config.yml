@@ -34,6 +34,11 @@ jobs:
     working_directory: ~/awesome-ac
     steps:
       - checkout
+      - run:
+          name: Checkout Submodules
+          command: |
+            git submodule init
+            git submodule update
       - save_cache:
           paths:
             - '~/awesome-ac'
@@ -72,6 +77,12 @@ jobs:
       - run:
           name: build
           command: yarn nx build awesome-ac
+      - save_cache:
+          paths:
+            - '~/awesome-ac/.cache'
+            - '~/awesome-ac/node_modules'
+            - '~/awesome-ac/dist/apps/awesome-ac/.next/cache'
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
 
   end-to-end:
     docker:
