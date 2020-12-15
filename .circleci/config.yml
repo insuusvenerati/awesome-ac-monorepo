@@ -92,10 +92,21 @@ workflows:
   build_install:
     jobs:
       - checkout
-      - build
-      - install_deps
-      - lint
-      - end-to-end
+      - build:
+          requires:
+            - checkout
+            - install_deps
+      - install_deps:
+          requires:
+            - checkout
+      - lint:
+          requires:
+            - checkout
+            - install_deps
+      - end-to-end:
+          requires:
+            - checkout
+            - install_deps
       - docker_build:
           requires:
             - checkout
