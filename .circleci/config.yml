@@ -8,44 +8,64 @@ jobs:
           username: stiforr
           password: $DOCKER_PASS
     steps:
-      - checkout
       - setup_remote_docker:
           docker_layer_caching: false
           version: 19.03.13
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
       - run:
           name: Build docker image
-          command: docker build -t stiforr/awesome-ac:latest .
+          command: docker build -t stiforr/awesome-ac:$CIRCLE_BRANCH .
       - run:
           name: Push docker Image
-          command: docker push stiforr/awesome-ac:latest
-  build_install:
+          command: docker push stiforr/awesome-ac:$CIRCLE_BRANCH
+  checkout:
+    docker:
+      - image: 'circleci/node:14'
+        auth:
+          username: stiforr
+          password: $DOCKER_PASS
+    working_directory: ~/awesome-ac
+    steps:
+      - checkout
+      - save_cache:
+          paths:
+            - '~/awesome-ac'
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+  install_deps:
+    docker:
+      - image: 'circleci/node:14'
+        auth:
+          username: stiforr
+          password: $DOCKER_PASS
+    working_directory: ~/awesome-ac
+    steps:
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Cache
+          paths:
+            - '~/awesome-ac/.cache'
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+  build:
     docker:
       - image: 'circleci/node:14'
     steps:
-      - checkout
       - restore_cache:
           name: Restore Yarn Cache
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-          name: install
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
-      - run:
           name: build
           command: yarn nx build awesome-ac
-      - save_cache:
-          name: Save Yarn Cache
-          paths:
-            - '~/.cache'
-            - 'node_modules'
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+
   end-to-end:
     docker:
       - image: 'cypress/base:14.15.0'
     steps:
-      - checkout
       - restore_cache:
           name: Restore Yarn Cache
           key: dependency-cache-{{ checksum "yarn.lock" }}
@@ -59,7 +79,6 @@ jobs:
     docker:
       - image: 'circleci/node:14'
     steps:
-      - checkout
       - restore_cache:
           name: Restore Yarn Cache
           key: dependency-cache-{{ checksum "yarn.lock" }}
@@ -72,11 +91,16 @@ jobs:
 workflows:
   build_install:
     jobs:
-      - build_install
-      - end-to-end
+      - build
+      - install_deps
       - lint
+      - end-to-end
       - docker_build:
           requires:
-            - build_install
+            - build
+            - install_deps
             - end-to-end
             - lint
+          filters:
+            tags:
+              only: ^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$
