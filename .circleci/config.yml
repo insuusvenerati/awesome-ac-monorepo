@@ -91,7 +91,7 @@ jobs:
       - restore_cache:
           key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}}
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
       - run:
           name: install
           command: yarn install --frozen-lockfile --cache-folder /home/circleci/awesome-ac/.cache/yarn
