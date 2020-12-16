@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  docker_build:
+  docker_build_tag:
     docker:
       - image: cimg/base:2020.01
         auth:
@@ -20,14 +20,35 @@ jobs:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
       - run:
-          name: Build docker image
+          name: Build docker image with tag
           command: docker build -t stiforr/awesome-ac:${CIRCLE_TAG} .
-      - run:
-          name: Build docker image
-          command: docker build -t stiforr/awesome-ac:latest .
       - run:
           name: Push docker Image
           command: docker push stiforr/awesome-ac:${CIRCLE_TAG}
+  docker_build_latest:
+    docker:
+      - image: cimg/base:2020.01
+        auth:
+          username: stiforr
+          password: $DOCKER_PASS
+    working_directory: ~/awesome-ac
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: false
+          version: 19.03.13
+      - restore_cache:
+          key: repo-cache-{{ .Environment.CACHE_VERSION }}
+      - restore_cache:
+          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
+      - run:
+          name: Docker login
+          command: docker login -u stiforr -p $DOCKER_PASS
+      - run:
+          name: Build docker image with latest
+          command: docker build -t stiforr/awesome-ac:latest .
+      - run:
+          name: Push docker Image
+          command: docker push stiforr/awesome-ac:latest
   checkout:
     docker:
       - image: 'circleci/node:14'
@@ -137,7 +158,7 @@ workflows:
           requires:
             - checkout
             - install_deps
-      - docker_build:
+      - docker_build_tag:
           requires:
             - checkout
             - build
@@ -147,3 +168,10 @@ workflows:
           filters:
             tags:
               only: ^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$
+      - docker_build_latest:
+          requires:
+            - checkout
+            - build
+            - install_deps
+            - end-to-end
+            - lint
