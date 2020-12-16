@@ -134,22 +134,47 @@ jobs:
 workflows:
   build_tag:
     jobs:
-      - checkout
+      - checkout:
+          filters:
+            tags:
+              only: /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/
+            branches:
+              ignore: /.*/
       - build:
           requires:
             - checkout
             - install_deps
+          filters:
+            tags:
+              only: /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/
+            branches:
+              ignore: /.*/
       - install_deps:
           requires:
             - checkout
+          filters:
+            tags:
+              only: /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/
+            branches:
+              ignore: /.*/
       - lint:
           requires:
             - checkout
             - install_deps
+          filters:
+            tags:
+              only: /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/
+            branches:
+              ignore: /.*/
       - end-to-end:
           requires:
             - checkout
             - install_deps
+          filters:
+            tags:
+              only: /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/
+            branches:
+              ignore: /.*/
       - docker_build_tag:
           requires:
             - checkout
