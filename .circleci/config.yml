@@ -140,7 +140,7 @@ jobs:
           name: Lint code
           command: yarn nx lint awesome-ac
 workflows:
-  build_install:
+  build_tag:
     jobs:
       - checkout
       - build:
@@ -168,6 +168,25 @@ workflows:
           filters:
             tags:
               only: ^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$
+              ignore: master
+  build_install:
+    jobs:
+      - checkout
+      - build:
+          requires:
+            - checkout
+            - install_deps
+      - install_deps:
+          requires:
+            - checkout
+      - lint:
+          requires:
+            - checkout
+            - install_deps
+      - end-to-end:
+          requires:
+            - checkout
+            - install_deps
       - docker_build_latest:
           requires:
             - checkout
