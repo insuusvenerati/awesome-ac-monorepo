@@ -21,13 +21,13 @@ jobs:
           command: docker login -u stiforr -p $DOCKER_PASS
       - run:
           name: Build docker image
-          command: docker build -t stiforr/awesome-ac:{{ .Environment.$CIRCLE_TAG }} .
+          command: docker build -t stiforr/awesome-ac:${CIRCLE_TAG} .
       - run:
           name: Build docker image
           command: docker build -t stiforr/awesome-ac:latest .
       - run:
           name: Push docker Image
-          command: docker push stiforr/awesome-ac:{{ .Environment.$CIRCLE_TAG }}
+          command: docker push stiforr/awesome-ac:${CIRCLE_TAG}
   checkout:
     docker:
       - image: 'circleci/node:14'
