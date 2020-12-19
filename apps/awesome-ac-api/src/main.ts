@@ -17,7 +17,7 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT || 1337, () => {
-    Logger.log(`Listening on http://localhost:${process.env.PORT}`);
+    Logger.log(`Listening on http://localhost:${process.env.PORT || 1337}`);
   });
 }
 bootstrap();

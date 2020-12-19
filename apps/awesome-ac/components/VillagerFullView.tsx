@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Card, Container, Grid, Label, List } from 'semantic-ui-react';
 import { Item } from '../types/item';
@@ -18,13 +17,15 @@ export const VillagerFullView = ({
   useEffect(() => {
     async function findFurnitureFromList() {
       const furnitureListArray = villagerExtra.furnitureList.split(';');
+      console.log(furnitureListArray);
       const results: Array<Array<Item>> = await Promise.all(
         furnitureListArray.map((item) =>
           fetch(
-            `${process.env.NEXT_PUBLIC_API_URI}/items/variant/${item}`
+            `${process.env.NEXT_PUBLIC_API_URI}/items/variant/${parseInt(item)}`
           ).then((response) => response.json())
         )
       );
+      console.log('results', results);
       setFurnitureItems(results);
     }
     findFurnitureFromList();
@@ -40,12 +41,7 @@ export const VillagerFullView = ({
               <Card.Content>
                 <Card.Header>{villager.name['name-USen']}</Card.Header>
               </Card.Content>
-              <img
-                alt="villager"
-                width={256}
-                height={256}
-                src={villager.image_uri}
-              />
+              <img alt="villager" height={256} src={villager.image_uri} />
             </Card>
           </Grid.Column>
           <Grid.Column>
@@ -108,9 +104,11 @@ export const VillagerFullView = ({
                   <List.Item>
                     <List.Header content="Furniture List" />
 
-                    {/* <List.Content
-                      content={furnitureItems.map(([item]) => `${toUpperCase(item.name)} `)}
-                    /> */}
+                    <List.Content
+                      content={furnitureItems.map(
+                        ([item]) => `${toUpperCase(item.name)} `
+                      )}
+                    />
                   </List.Item>
                   <List.Item>
                     <List.Header content="Colors" />

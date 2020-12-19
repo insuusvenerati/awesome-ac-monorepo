@@ -10,7 +10,7 @@ const VillagerItem = ({ villager }: { villager: Villager }) => (
       raised
       href={`/villager/${villager.id}`}
     >
-      <img alt="villager" width={360} height={360} src={villager.image_uri} />
+      <img alt="villager" height={360} src={villager.image_uri} />
 
       <Card.Content>
         <Card.Header>{villager.name['name-USen']}</Card.Header>
