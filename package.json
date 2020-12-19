@@ -7,27 +7,10 @@
   },
   "scripts": {
     "nx": "nx",
-    "start": "nx serve",
     "serve:web": "nx serve awesome-ac",
     "serve:api": "yarn build:api && node dist/apps/awesome-ac-api/main.js",
-    "build": "nx build",
     "build:web": "nx build awesome-ac",
-    "build:api": "nx build awesome-ac-api --prod",
-    "test": "nx test",
-    "lint": "nx workspace-lint && nx lint",
-    "e2e": "nx e2e",
-    "affected:apps": "nx affected:apps",
-    "affected:libs": "nx affected:libs",
-    "affected:build": "nx affected:build",
-    "affected:e2e": "nx affected:e2e",
-    "affected:test": "nx affected:test",
-    "affected:lint": "nx affected:lint",
-    "affected:dep-graph": "nx affected:dep-graph",
-    "affected": "nx affected",
-    "format": "nx format:write",
-    "format:write": "nx format:write",
-    "format:check": "nx format:check",
-    "update": "nx migrate latest"
+    "build:api": "nx build awesome-ac-api --prod"
   },
   "private": true,
   "dependencies": {
