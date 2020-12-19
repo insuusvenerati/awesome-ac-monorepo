@@ -2,3 +2,5 @@
 
 !dist/apps/awesome-ac-api
 !Procfile
+!yarn.lock
+!package.json
