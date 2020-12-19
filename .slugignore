@@ -1,6 +1,6 @@
-* 
-
-!dist/apps/awesome-ac-api
-!Procfile
-!yarn.lock
-!package.json
+apps/
+dist/apps/awesome-ac
+tmp/
+tools/
+.vscode/
+node_modules/
