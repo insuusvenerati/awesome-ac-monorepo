@@ -11,26 +11,26 @@ const items = [
     name: 'Art',
     url: '/art',
   },
-  {
-    name: 'Music',
-    url: '/music',
-  },
+  // {
+  //   name: 'Music',
+  //   url: '/music',
+  // },
   {
     name: 'Sea',
     url: '/sea',
   },
-  {
-    name: 'Fossils',
-    url: '/fossils',
-  },
+  // {
+  //   name: 'Fossils',
+  //   url: '/fossils',
+  // },
   {
     name: 'Fish',
     url: '/fish',
   },
-  {
-    name: 'Bugs',
-    url: '/bugs',
-  },
+  // {
+  //   name: 'Bugs',
+  //   url: '/bugs',
+  // },
   {
     name: 'Items',
     url: '/items',
