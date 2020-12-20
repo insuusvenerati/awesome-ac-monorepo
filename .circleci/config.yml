@@ -12,7 +12,7 @@ jobs:
           docker_layer_caching: false
           version: 19.03.13
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
+          key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
@@ -33,7 +33,7 @@ jobs:
           docker_layer_caching: false
           version: 19.03.13
       - restore_cache:
-          key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
+          key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
