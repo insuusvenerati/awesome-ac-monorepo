@@ -91,7 +91,7 @@ jobs:
           command: yarn install --frozen-lockfile --cache-folder /home/circleci/awesome-ac/.cache/yarn
       - run:
           name: build
-          command: yarn nx build awesome-ac
+          command: yarn nx build awesome-ac --prod
       - save_cache:
           paths:
             - '~/awesome-ac/.cache'
