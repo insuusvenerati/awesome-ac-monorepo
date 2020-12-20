@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Sea } from '../../types/sea';
-import seaItems from '../../acnhapi/v1a/sea.json';
+import seaItems from '../../v1a/sea.json';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {

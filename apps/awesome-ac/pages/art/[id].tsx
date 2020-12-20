@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
-import art from '../../acnhapi/v1a/art.json';
+import art from '../../v1a/art.json';
 import { ArtFullView } from '../../components/ArtFullView';
 import { Art } from '../../types/art';
 
