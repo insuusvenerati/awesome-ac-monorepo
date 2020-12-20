@@ -12,8 +12,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
           version: 19.03.13
-      - restore_cache:
-          key: repo-cache-{{ .Environment.CACHE_VERSION }}
+      - checkout
       - run:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
@@ -34,8 +33,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
           version: 19.03.13
-      - restore_cache:
-          key: repo-cache-{{ .Environment.CACHE_VERSION }}
+      - checkout
       - run:
           name: Docker login
           command: docker login -u stiforr -p $DOCKER_PASS
@@ -71,8 +69,7 @@ jobs:
           password: $DOCKER_PASS
     working_directory: ~/awesome-ac
     steps:
-      - restore_cache:
-          key: repo-cache-{{ .Environment.CACHE_VERSION }}
+      - checkout
       - restore_cache:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
       - run: yarn install --frozen-lockfile --cache-folder /home/circleci/awesome-ac/.cache/yarn
@@ -87,8 +84,6 @@ jobs:
     working_directory: ~/awesome-ac
     steps:
       - checkout
-      - restore_cache:
-          key: repo-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
       - run:
@@ -111,8 +106,6 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: repo-cache-{{ .Environment.CACHE_VERSION }}
-      - restore_cache:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
       - run:
           name: install
@@ -125,8 +118,7 @@ jobs:
       - image: 'circleci/node:14'
     working_directory: ~/awesome-ac
     steps:
-      - restore_cache:
-          key: repo-cache-{{ .Environment.CACHE_VERSION }}
+      - checkout
       - restore_cache:
           key: deps-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "/home/circleci/awesome-ac/yarn.lock" }}
       - run:
@@ -135,7 +127,22 @@ jobs:
       - run:
           name: Lint code
           command: yarn nx lint awesome-ac
+  build_api:
+    docker:
+      - image: 'circleci/node:14'
+    working_directory: ~/awesome-ac-api
+    steps:
+      - checkout
+      - run:
+          name: Install Deps
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Build
+          command: yarn nx build awesome-ac-api --prod
 workflows:
+  build_api:
+    jobs:
+      - build_api
   build_tag:
     jobs:
       - checkout:
