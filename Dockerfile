@@ -8,7 +8,7 @@ WORKDIR /opt/app
 RUN yarn install
 
 COPY . /opt/app
-RUN NODE_ENV=production yarn nx build awesome-ac
+RUN yarn nx build awesome-ac --prod
 
 EXPOSE 3000
 
