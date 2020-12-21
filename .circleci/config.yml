@@ -127,22 +127,28 @@ jobs:
       - run:
           name: Lint code
           command: yarn nx lint awesome-ac
-  build_api:
+  docker_build_api:
     docker:
-      - image: 'circleci/node:14'
+      - image: cimg/base:2020.01
     working_directory: ~/awesome-ac-api
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: false
+          version: 19.03.13
       - checkout
       - run:
-          name: Install Deps
-          command: yarn install --frozen-lockfile
+          name: Docker login
+          command: docker login -u stiforr -p $DOCKER_PASS
       - run:
-          name: Build
-          command: yarn nx build awesome-ac-api --prod
+          name: Build docker image with latest
+          command: docker build -f Dockerfile.api -t stiforr/awesome-ac-api:latest .
+      - run:
+          name: Push docker Image
+          command: docker push stiforr/awesome-ac-api:latest
 workflows:
   build_api:
     jobs:
-      - build_api
+      - docker_build_api
   build_tag:
     jobs:
       - checkout:
