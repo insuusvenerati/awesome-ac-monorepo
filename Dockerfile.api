@@ -4,8 +4,6 @@ COPY . /home/node/
 WORKDIR /home/node/
 RUN yarn install --frozen-lockfile && \
   yarn build:api
-# RUN yarn build:api
-# RUN yarn cache clean
 
 FROM node:14-slim
 
