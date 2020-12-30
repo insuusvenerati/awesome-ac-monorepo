@@ -5,7 +5,7 @@ metadata:
   name: app
   namespace: flux-system
 spec:
-  interval: 30s
+  interval: 10m
   ref:
     semver: '>=1.0.0 <2.0.0'
   url: https://github.com/insuusvenerati/awesome-ac-monorepo
