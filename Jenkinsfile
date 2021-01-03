@@ -9,11 +9,15 @@ pipeline {
   }
   stages {
     stage('Git clone') {
-      checkout scm
+      steps {
+        checkout scm
+      }
     }
 
     stage('Build') {
-      docker.build("stiforr/awesome-ac")
+      steps {
+        docker.build('stiforr/awesome-ac')
+      }
     }
   }
 }
