@@ -8,8 +8,10 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t stiforr/awesome-ac'
+        fileExists 'Dockerfile'
+        sh 'docker built -c Dockerfile -t stiforr/awesome-ac:latest'
       }
     }
+
   }
 }
