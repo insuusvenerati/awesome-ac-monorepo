@@ -17,7 +17,7 @@ export const Item = ({ item }: { item: ItemType }) => (
           content="Click to see more details"
         />
         <Card.Header>{toUpperCase(item.name)}</Card.Header>
-        <Card.Meta> Birthday: {item.exchangePrice}</Card.Meta>
+        <Card.Meta> Price: {item.exchangePrice}</Card.Meta>
         <p style={{ color: 'black' }}>{item.tag}</p>
         <List relaxed>
           <List.Item>
