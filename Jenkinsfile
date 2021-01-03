@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t stiforr/awesome-ac'
+        sh 'docker build -t stiforr/awesome-ac .'
       }
     }
   }
