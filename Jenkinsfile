@@ -6,6 +6,7 @@ pipeline {
       yamlFile 'build-pod.yaml'
       defaultContainer 'docker'
     }
+  }
   stages {
     stage('Build') {
       steps {
