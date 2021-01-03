@@ -1,15 +1,11 @@
-pipeline {
-  agent {
-    dockerfile {
-      filename 'Dockerfile'
-    }
+node {
+  def app
 
+  stage("Git clone") {
+    checkout scm
   }
-  stages {
-    stage('Build') {
-      steps {
-        sh 'docker build -t stiforr/awesome-ac'
-      }
-    }
+
+  stage("Build Image") {
+    app = docker.build("stiforr/awesome-ac")
   }
 }
