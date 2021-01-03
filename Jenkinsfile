@@ -1,22 +1,16 @@
 pipeline {
   agent {
-    docker {
-      image 'docker:latest'
+    kubernetes {
+      label 'awesome-ac'
+      idleMinutes 5
+      yamlFile 'build-pod.yaml'
+      defaultContainer 'docker'
     }
-
-  }
   stages {
     stage('Build') {
-      agent {
-        docker {
-          image 'docker'
-        }
-
-      }
       steps {
         sh 'docker build -t stiforr/awesome-ac'
       }
     }
-
   }
 }
